@@ -19,9 +19,10 @@ void handleEvent(const sf::Event& event, ArduinoInterface& arduino)
 			unsigned int joystickId = event.joystickConnect.joystickId;
 	}
 	if (event.type == sf::Event::JoystickButtonPressed){
-		arduino.Send("toggle");
 			unsigned int joystickId = event.joystickButton.joystickId; //Ids are numbered from 0 to 7
 			unsigned int button     = event.joystickButton.button; //Button are numbered from 0 to 31
+		std::cout << "Button: " << (button) << "\n";
+		arduino.Send((unsigned char)button);
 	}
 	if (event.type == sf::Event::JoystickButtonReleased)
 	{

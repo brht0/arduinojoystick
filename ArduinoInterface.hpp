@@ -20,6 +20,10 @@ public:
 		output_ << command << std::flush;
 	}
 
+	void Send(uint8_t value){
+		output_ << value << std::flush;
+	}
+
 private:
 	std::ofstream output_;
 
