@@ -9,7 +9,7 @@
 class ArduinoInterface{
 public:
 	ArduinoInterface():
-		output_("/dev/ttyACM0")
+		output_(DEVICE)
 	{
 		system("stty -F " DEVICE " cs8 9600 ignbrk -brkint -icrnl -imaxbel -opost -onlcr -isig -icanon -iexten -echo -echoe -echok -echoctl -echoke noflsh -ixon -crtscts");
 	}
