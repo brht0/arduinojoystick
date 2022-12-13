@@ -14,16 +14,15 @@ Collection of pieces of the internet. Don't sue me
 void handleEvent(const sf::Event& event, ArduinoInterface& arduino)
 {
 	if (event.type == sf::Event::MouseButtonPressed){
-		arduino.Send("-- mouse 300 200\n");
+		// arduino.Send("Mouse 300 200\n");
 	}
 	else if (event.type == sf::Event::JoystickDisconnected){
 			unsigned int joystickId = event.joystickConnect.joystickId;
 	}
 	if (event.type == sf::Event::JoystickButtonPressed){
-			unsigned int joystickId = event.joystickButton.joystickId; //Ids are numbered from 0 to 7
-			unsigned int button     = event.joystickButton.button; //Button are numbered from 0 to 31
-		std::cout << "Button: " << (button) << "\n";
-		arduino.Send((unsigned char)button);
+		unsigned int joystickId = event.joystickButton.joystickId; //Ids are numbered from 0 to 7
+		unsigned int button     = event.joystickButton.button; //Button are numbered from 0 to 31
+		arduino.Send("B " + std::to_string(button));
 	}
 	if (event.type == sf::Event::JoystickButtonReleased)
 	{
@@ -35,6 +34,12 @@ void handleEvent(const sf::Event& event, ArduinoInterface& arduino)
 		unsigned int joystickId = event.joystickMove.joystickId; //Ids are numbered from 0 to 7
 		sf::Joystick::Axis axis = event.joystickMove.axis; //X, Y, Z, R, U, V, POV X and POV Y
 		float position          = event.joystickMove.position; //Position is between -100 and 100
+		if(axis == sf::Joystick::X)
+			arduino.Send("X " + std::to_string(position));
+		if(axis == sf::Joystick::Y)
+			arduino.Send("Y " + std::to_string(position));
+		if(axis == sf::Joystick::R)
+			arduino.Send("R " + std::to_string(position));
 		//Axes depend on your GamePad and OS System, but here is an example
 		//Axis POV X and POV y  = DPad (Directional Pad)    ,first axis is horizontal (left-right), second is vertical (up-down)
 		//Axis X and Y          = First Analog              ,first axis is horizontal (left-right), second is vertical (up-down)

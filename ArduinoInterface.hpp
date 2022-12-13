@@ -17,7 +17,9 @@ public:
 	}
 
 	void Send(std::string command){
-		output_ << command << std::flush;
+		std::cout << "Seding to Arduino: " << command << "\n";
+		output_ << (command + '\n') << std::flush;
+		usleep(20000);
 	}
 
 	void Send(uint8_t value){
