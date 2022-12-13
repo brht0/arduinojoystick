@@ -14,6 +14,7 @@ Collection of pieces of the internet. Don't sue me
 void handleEvent(const sf::Event& event, ArduinoInterface& arduino)
 {
 	if (event.type == sf::Event::MouseButtonPressed){
+		arduino.Send("-- mouse 300 200\n");
 	}
 	else if (event.type == sf::Event::JoystickDisconnected){
 			unsigned int joystickId = event.joystickConnect.joystickId;
