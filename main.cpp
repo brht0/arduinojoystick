@@ -3,16 +3,7 @@
 #include "ArduinoInterface.hpp"
 #include "SFML/Graphics.hpp"
 
-
-/*
-
-Collection of pieces of the internet. Don't sue me
-
-*/
-
-
-void handleEvent(const sf::Event& event, ArduinoInterface& arduino)
-{
+void handleEvent(const sf::Event& event, ArduinoInterface& arduino){
 	if (event.type == sf::Event::MouseButtonPressed){
 		// arduino.Send("Mouse 300 200\n");
 	}
@@ -24,13 +15,11 @@ void handleEvent(const sf::Event& event, ArduinoInterface& arduino)
 		unsigned int button     = event.joystickButton.button; //Button are numbered from 0 to 31
 		arduino.Send("B " + std::to_string(button));
 	}
-	if (event.type == sf::Event::JoystickButtonReleased)
-	{
+	if (event.type == sf::Event::JoystickButtonReleased){
 		unsigned int joystickId = event.joystickButton.joystickId; //Ids are numbered from 0 to 7
 		unsigned int button     = event.joystickButton.button; //Button are numbered from 0 to 31
 	}
-	if (event.type == sf::Event::JoystickMoved)
-	{
+	if (event.type == sf::Event::JoystickMoved){
 		unsigned int joystickId = event.joystickMove.joystickId; //Ids are numbered from 0 to 7
 		sf::Joystick::Axis axis = event.joystickMove.axis; //X, Y, Z, R, U, V, POV X and POV Y
 		float position2          = event.joystickMove.position; //Position is between -100 and 100
@@ -41,17 +30,11 @@ void handleEvent(const sf::Event& event, ArduinoInterface& arduino)
 			arduino.Send("Y " + std::to_string(position));
 		if(axis == sf::Joystick::R)
 			arduino.Send("R " + std::to_string(position));
-		//Axes depend on your GamePad and OS System, but here is an example
-		//Axis POV X and POV y  = DPad (Directional Pad)    ,first axis is horizontal (left-right), second is vertical (up-down)
-		//Axis X and Y          = First Analog              ,first axis is horizontal (left-right), second is vertical (up-down)
-		//Axis Z and R          = Second Analog             ,first axis is horizontal (left-right), second is vertical (up-down)
-		//Axis U and V          = Shoulder (L2, R2)         ,first axis is L2, second is R2
-
 	}
 }
 
 int main(){
-	sf::RenderWindow window(sf::VideoMode(100, 100), "Control joystick");
+	sf::RenderWindow window(sf::VideoMode(300, 300), "Control joystick");
 	
 	bool connected = sf::Joystick::isConnected(0);
 	std::cout << "connected: " << connected << "\n";
@@ -64,7 +47,7 @@ int main(){
 			handleEvent(event, arduino);
 		}
 
-		usleep(10000);
+		usleep(3000);
 	}
 
   return 0;
